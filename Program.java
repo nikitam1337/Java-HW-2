@@ -12,7 +12,12 @@ public class Program {
             System.out.println("Не определено");
         } else {
             double c = pow(a, b);
-            System.out.print(c);
+            if (c%1!=0){
+                System.out.print(c);
+            } else {
+                int res = (int)c;
+                System.out.print(res);
+            }
         }
         iScanner.close();
     }
