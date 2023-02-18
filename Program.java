@@ -1,8 +1,60 @@
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Program {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        String path = "input.txt";
+        File file = new File(path);
+        String[] oneLine = new String[2];
+        int i = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                oneLine[i++] = line;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String[] temp1 = oneLine[0].split(" ");
+        String[] temp2 = oneLine[1].split(" ");
+        int a = Integer.parseInt(temp1[1]);
+        int b = Integer.parseInt(temp2[1]);
+        
+        if (temp1[0].equals("a")) {
+            // int a = Integer.parseInt(temp1[1]);
+            // int b = Integer.parseInt(temp2[1]);
+            if (pow((double) a, (double) b) == 0) {
+                System.out.println("Не определено");
+            } else {
+                double c = pow((double) a, (double) b);
+                if (c % 1 != 0) {
+                    writeToFile(c);
+                } else {
+                    int res = (int) c;
+                    writeToFile(res);
+                }
+            }
+        } else{
+            if (pow((double) b, (double) a) == 0) {
+                System.out.println("Не определено");
+            } else {
+                double c = pow((double) b, (double)a);
+                if (c % 1 != 0) {
+                    writeToFile(c);
+                } else {
+                    int res = (int) c;
+                    writeToFile(res);
+                }
+            }
+        }
+    }
+
+    public static void terminal() {
         Scanner iScanner = new Scanner(System.in);
         System.out.printf("Введите a: ");
         double a = iScanner.nextDouble();
@@ -12,10 +64,10 @@ public class Program {
             System.out.println("Не определено");
         } else {
             double c = pow(a, b);
-            if (c%1!=0){
+            if (c % 1 != 0) {
                 System.out.print(c);
             } else {
-                int res = (int)c;
+                int res = (int) c;
                 System.out.print(res);
             }
         }
@@ -40,5 +92,13 @@ public class Program {
             }
             return result;
         }
+    }
+
+    public static void writeToFile(Object result) {
+        try (FileWriter fw = new FileWriter("output.txt", false)){
+            fw.write (String.valueOf(result));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }        
     }
 }
