@@ -26,35 +26,21 @@ public class Program {
         int b = Integer.parseInt(temp2[1]);
         
         if (temp1[0].equals("a")) {
-            // int a = Integer.parseInt(temp1[1]);
-            // int b = Integer.parseInt(temp2[1]);
             if (pow((double) a, (double) b) == 0) {
                 System.out.println("Не определено");
             } else {
-                double c = pow((double) a, (double) b);
-                if (c % 1 != 0) {
-                    writeToFile(c);
-                } else {
-                    int res = (int) c;
-                    writeToFile(res);
-                }
+                printResultToFile(a, b);
             }
         } else{
             if (pow((double) b, (double) a) == 0) {
                 System.out.println("Не определено");
             } else {
-                double c = pow((double) b, (double)a);
-                if (c % 1 != 0) {
-                    writeToFile(c);
-                } else {
-                    int res = (int) c;
-                    writeToFile(res);
-                }
+                printResultToFile(b, a);
             }
         }
     }
 
-    public static void terminal() {
+    public static void terminal() { // Вызываем этот метод, если хотим работать через терминал.
         Scanner iScanner = new Scanner(System.in);
         System.out.printf("Введите a: ");
         double a = iScanner.nextDouble();
@@ -91,6 +77,16 @@ public class Program {
                 result = result * value;
             }
             return result;
+        }
+    }
+
+    public static void printResultToFile(int value, int powValue) {
+        double c = pow((double) value, (double)powValue);
+        if (c % 1 != 0) {
+            writeToFile(c);
+        } else {
+            int res = (int) c;
+            writeToFile(res);
         }
     }
 
